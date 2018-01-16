@@ -46,14 +46,21 @@ $$
 and our state consists of endogenous \textit{savings} ($s_t$) and exogenous \textit{interest rate} ($R_t$), and our control variable is the next period's endogenous state ($s_{t+1}$).
 
 \subsection*{c}
+\paragraph{Notation} We use $f'_{x}$ to denote the first partial derivative of $f$ with regards to $x$ ($\frac{df}{dx}$) for ease of notation. Similarly, $D_x$ denotes the partial derivative of an expression with regards to $x$.
 
-\paragraph{FOC} First-order conditions are given by maximizing our value function under our control variable (the output of our policy function), which is also the endogenous state in our formulation, $s_{t+1}$. Note: we use $f'_{x}()$ to denote $\frac{df}{dx}$ for ease of notation.
-%
+\paragraph{FOC} First-order conditions are given by maximizing our value function under our control variable (the output of our policy function, $s_{t+1}$).
+
 $$
-U'_{s_{t+1}}(s_t, R_t, s_{t+1}) + \beta \mathbb{E} [ V'_{s_{t+1}}(s_{t+1}, R_{t+1})] = 0
+V'_{s_{t+1}}(s_{t}, R_{t}) = U'_{s_{t+1}}(s_t, R_t, s_{t+1}) + D_{s_{t+1}} \beta \mathbb{E} [ V(s_{t+1}, R_{t+1})] = 0
 $$
-%
-\paragraph{Envelope} We evaluate $V'_{s_{t+1}}(s_{t+1}, R_{t+1})$ directly to obtaint the ``forwarded'' envelope conditions:
+
+\noindent Because our only source of stochasticity is our exogenous state variable, $R_t$, we can rewrite the above equation, moving the partial derivative into the expectation:
+
+$$
+V'_{s_{t+1}}(s_{t}, R_{1}) = U'_{s_{t+1}}(s_t, R_t, s_{t+1}) + \beta \mathbb{E} [ V'_{s_{t+1}}(s_{t+1}, R_{t+1})] = 0
+$$
+
+\paragraph{Envelope} We evaluate $V'_{s_{t+1}}(s_{t+1}, R_{t+1})$ directly to obtain the ``forwarded'' envelope conditions:
 %
 \begin{align*}
 V'_{s_{t+1}}(s_{t+1}, R_{t+1}) =& \\
