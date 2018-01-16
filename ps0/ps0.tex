@@ -1,0 +1,79 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{mathtools,amsfonts,amssymb,amsmath, bm,commath,multicol}
+\usepackage{algorithmicx, tkz-graph, algorithm, fancyhdr, pgfplots, fancyvrb}
+\usepackage[noend]{algpseudocode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{16/1/2018}
+\lhead{PS 0}
+\rfoot{\thepage}
+
+\begin{document}
+
+\section*{2}
+\subsection*{a}
+Firstly, note that in the provided formulation our control variable is consumption($c_t$), the assets ($a_t$) is an endogenous state variable, and the interest rate ($R_t$) is an exogenous state variable. Consumption can be written, by using the constraint, as a function of our state variable $a_t$:
+%
+$$
+c_t = a_t - \frac{a_{t+1}}{R_t}
+$$
+%
+To simplify the formulation of the problem, we create a new endogenous state variable that will also be our control variable, called \textit{savings}:
+%
+$$
+s_{t} = \frac{a_{t+1}}{R_{t}}
+$$
+%
+This allows us to express consumption at time t as an expression of savings, interest rate, and future savings:
+%
+$$
+c_t = s_{t-1}R_{t-1} - \frac{s_{t}R_{t}}{R_{t}} = s_{t-1}R_{t-1} - s_{t}
+$$
+%
+With this formulation, our Bellman equation becomes:
+%
+$$
+V(s_t, R_t) = \max_{s_{t+1} = \pi (s_t, R_t)} \ U(s_t, R_t, s_{t+1}) + \beta \mathbb{E}[ V(s_{t+1}, R_{t+1})]
+$$
+%
+where
+%
+$$
+U(s_t, R_t, s_{t+1}) = u(s_tR_t - s_{t+1}) = u(c_{t+1})
+$$
+%
+and our state consists of endogenous \textit{savings} ($s_t$) and exogenous \textit{interest rate} ($R_t$), and our control variable is the next period's endogenous state ($s_{t+1}$).
+
+\subsection*{c}
+
+\paragraph{FOC} First-order conditions are given by maximizing our value function under our control variable (the output of our policy function), which is also the endogenous state in our formulation, $s_{t+1}$. Note: we use $f'_{x}()$ to denote $\frac{df}{dx}$ for ease of notation.
+%
+$$
+U'_{s_{t+1}}(s_t, R_t, s_{t+1}) + \beta \mathbb{E} [ V'_{s_{t+1}}(s_{t+1}, R_{t+1})] = 0
+$$
+%
+\paragraph{Envelope} We evaluate $V'_{s_{t+1}}(s_{t+1}, R_{t+1})$ directly to obtaint the ``forwarded'' envelope conditions:
+%
+\begin{align*}
+V'_{s_{t+1}}(s_{t+1}, R_{t+1}) =& \\
+&U'_{s_{t+1}}(s_{t+1}, R_{t+1}, s_{t+2}) + \\
+&\underbrace{U'_{s_{t+2}}(s_{t+1}, R_{t+1}, s_{t+1})\frac{ds_{t+2}}{ds_{t+1}} + \beta \mathbb{E} [ V'_{s_{t+2}}(s_{t+2}, R_{t+1})\frac{ds_{t+2}}{ds_{t+1}}]}_{= 0 \text{ by FOC}}
+\end{align*}
+%
+\paragraph{Euler}
+With the forwarded envelope equation, we plug it into the first-order conditions to get our Euler equation:
+%
+$$
+- U'_{s_{t+1}}(s_t, R_t, s_{t+1}) = \beta \mathbb{E} [U'_{s_{t+1}}(s_{t+1}, R_{t+1}, s_{t+2})]
+$$
+%
+\paragraph{Tranversality} A ``terminal'' condition to ensure a solution to our equation is required, we can get this by ensuring a corner solution (\textit{savings}, and therefore \textit{assets} at the end of time are zero), or an interior solution (our utility function ``saturates'', which is to say, flattens with respect to our \textit{savings}):
+%
+$$
+\lim_{t \rightarrow \infty} \ \beta^t\  \mathbb{E}[ U'_{s_t}(s_t, R, s_{t+1})] \ s_t = 0
+$$
+%
+
+
+\end{document}
